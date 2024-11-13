@@ -1,5 +1,7 @@
 # ACF Smart Button
 
+## Forked from the original v5 version due to changes in ACF nonces that caused post object rendering to fail
+
 A simple, clean and lean ACF Field that allows the user to select an internal link as a post_object or an external link as a url field via a smooth toggle.
 
 It always returns the url as the same field, whether it's an internal or external link. With button.target you can additionally add target="_blank" in your template without additional casing.
