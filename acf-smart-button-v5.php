@@ -130,17 +130,75 @@ class acf_field_smart_button extends acf_field {
 		$field['value']['link'] = isset( $field['value']['link'] ) ? $field['value']['link'] : null;
 		$field['value']['post_id'] = isset( $field['value']['post_id'] ) ? $field['value']['post_id'] : null;
 		$field['value']['use_external'] = isset( $field['value']['use_external'] ) ? $field['value']['use_external'] : null;
+		$types = $field['post_type'];
 
 		$required = $field['required'] ? 'required' : null;
 		$required_asterisk = $field['required'] ? '<span class="acf-required">*</span>' : null;
+
+		$typez = 'acf_field_smart_button_';
 
 		?>
 
 		<table class="acf-smart-button-fields">
 			<tr>
-				<td valign="top" class="button-text">
-					<label><?php _e('Text', 'acf-smart-button'); echo $required_asterisk; ?></label>
-					<input type="text" value="<?php echo esc_attr( $field['value']['text'] ); ?>" name="<?php echo $field_name; ?>[text]" class="text"<?php echo $required ?>>
+				<td valign="top" class="internal">
+					<label><?php _e('Internal Link', 'acf-smart-button'); echo $required_asterisk; ?></label>
+					<?php
+						$field_raw_key = str_replace( 'field_', '', $field['key'] );
+					?>
+					<div class="acf-field acf-field-<?php echo $field_raw_key; ?> acf-field-post-object" data-name="<?php echo $field['_name']; ?>[post_id]" data-type="post_object" data-key="<?php echo $field['key']; ?>">
+						<div class="acf-input">						
+						<select name="<?php echo $field['name'] . '[post_id]'; ?>">
+							<?php
+
+								//Create dropdown of post types
+								$str = ''; //String holding element
+								if (!$types) { $types = array('post','page'); } //If no type is selected, default to post and pages
+
+								//Loop through types
+								if ($types) {
+									foreach ($types as $type) {
+										//If post type is hierarchical use [wp_dropdown_pages]
+										if (is_post_type_hierarchical($type)) {
+											$args = array(
+												'name' => 'remove',
+												'post_type' => $type,
+												'id' => false,
+												'selected' => $field['value']['post_id'],
+												'echo' => false
+											);
+											$str .= '<optgroup label="'.ucwords($type).'">';
+											$str .= wp_dropdown_pages($args);
+											$str .= '</optgroup>';
+										} else {
+											//If post type is NOT hierarchical, use [get_posts]
+											$str .= '<optgroup label="'.ucwords($type).'">';
+											$args = array(
+												'post_type' => $type,
+												'orderby' => 'title',
+												'order' => 'ASC',
+												'showposts' => -1
+											);
+											$dropdown_items = get_posts($args);
+											foreach ($dropdown_items as $item) {
+												$str .= '<option value="'.$item->ID.'">'.$item->post_title.'</option>';
+											}
+											$str .= '</optgroup>';
+										}
+									}
+								}
+
+								//Strip out any extraneous HTML tags from wp_dropdown_pages and make sure the string ins't empty.
+								$str = strip_tags($str,'<option><optgroup>');
+								if ($str != '') { echo $str; }
+
+								//Fallback incase the above fails, simple input field that holds the post ID so nothing is lost
+								else { echo '<input type="text" name="'.$field['name'] . '[post_id]'.'" value="'.$field['value']['post_id'].'">'; }
+							?>		
+						</select>	
+						</div>
+
+					</div>
 				</td>
 				<td valign="top" class="external hidden">
 					<label><?php _e('External Link', 'acf-smart-button'); echo $required_asterisk; ?></label>
@@ -154,29 +212,11 @@ class acf_field_smart_button extends acf_field {
 							'placeholder' => ''
 						));
 					?>
-				</td>
-				<td valign="top" class="internal">
-					<label><?php _e('Internal Link', 'acf-smart-button'); echo $required_asterisk; ?></label>
-					<?php
-						// str replace to get raw key (there seems to be no other way?)
-						$field_raw_key = str_replace( 'field_', '', $field['key'] );
-					?>
-					<div class="acf-field acf-field-<?php echo $field_raw_key; ?> acf-field-post-object" data-name="<?php echo $field['_name']; ?>[post_id]" data-type="post_object" data-key="<?php echo $field['key']; ?>">
-						<div class="acf-input">
-						<?php
-							// $types = array('post', 'page');
-							@do_action('acf/render_field/type=post_object', array(
-								'name' => $field_name . '[post_id]',
-								'value' => $field['value']['post_id'],
-								// 'post_type' => $types, // Removed so the selection isn't restricted to just posts and pages
-								'allow_null' => 1
-								//'_name' => 'acf[' . $field['_name'] . '][post_id]',
-								//'key' => 'acf[' . $field['key'] . '][post_id]'
-							));
-						?>
-						</div>
-					</div>
-				</td>
+				</td>				
+				<td valign="top" class="button-text">
+					<label><?php _e('Text', 'acf-smart-button'); echo $required_asterisk; ?></label>
+					<input type="text" value="<?php echo esc_attr( $field['value']['text'] ); ?>" name="<?php echo $field_name; ?>[text]" class="text"<?php echo $required ?>>
+				</td>				
 				<td class="switcher-container">
 					<label><?php _e('Use external Link', 'acf-smart-button'); ?></label>
 					<div class="switcher">
@@ -248,7 +288,6 @@ class acf_field_smart_button extends acf_field {
 
 		// internal
 		if( !array_key_exists( 'use_external', $value ) ) {
-
 			// return false if there is no post_id
 			if( empty( $value['post_id'] ) ) {
 				return false;
@@ -278,9 +317,9 @@ class acf_field_smart_button extends acf_field {
 		}
 
 		// unused fields that are not needed
-		unset( $value['link'] );
-		unset( $value['post_id'] );
-		unset( $value['use_external'] );
+		//unset( $value['link'] );
+		//unset( $value['post_id'] );
+		//unset( $value['use_external'] );
 
 		return $value;
 	}
@@ -304,10 +343,10 @@ class acf_field_smart_button extends acf_field {
 	*/
 	function validate_value( $valid, $value, $field, $input ) {
 
-		// store use_external for later use
+	// store use_external for later use
     $use_external = array_key_exists( 'use_external', $value ) ? true : false;
 
-		// unset use_external and target from value so we can easily check for empty $value
+	// unset use_external and target from value so we can easily check for empty $value
     unset( $value['use_external'] );
     unset( $value['target'] );
 
