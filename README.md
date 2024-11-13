@@ -77,3 +77,4 @@ include_once('acf-smart-button/acf-smart-button.php');
 ## Else
 
 Partially inspired by https://github.com/envex/acf-button-field, but is missing acf5 support and didn't meet my requirements fully.
+Forked from https://github.com/gillesgoetsch/acf-smart-button which no longer works due to ACFs latest security updates.
