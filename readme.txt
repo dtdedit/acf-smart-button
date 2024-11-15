@@ -1,9 +1,9 @@
 === Advanced Custom Fields: Smart Button Field ===
-Contributors: gillesgoetsch
+Contributors: gillesgoetsch, dtdedit
 Tags: acf, button, external, link
-Requires at least: 4.0
-Tested up to: 4.3.6.1
-Stable tag: 1.0.0
+Requires at least: 5.0
+Tested up to: 6.3.11
+Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -28,6 +28,9 @@ This ACF field type is compatible with:
 4. Please refer to the description for more info regarding the field type settings
 
 == Changelog ==
+
+= 2.0.0 =
+* Forked from original, modified to work with latest ACF security changes.
 
 = 1.0.0 =
 * Initial Release.
