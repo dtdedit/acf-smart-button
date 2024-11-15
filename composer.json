@@ -1,12 +1,12 @@
 {
-  "name": "gillesgoetsch/acf-smart-button",
-  "version": "1.0.4",
+  "name": "dtdedit/acf-smart-button",
+  "version": "2.0.0",
   "description": "A simple, clean and lean ACF Field for internal and external links.",
   "keywords": ["wordpress", "plugin", "acf", "button"],
   "license": "GPLv2.0+",
   "authors": [{
-    "name": "Gilles Goetsch",
-    "homepage": "https://gillesgoetsch.ch"
+    "name": "DTD Edit",
+    "homepage": "https://github.com/dtdedit/"
   }],
   "type": "wordpress-plugin",
   "require": {
