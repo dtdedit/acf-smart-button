@@ -40,17 +40,14 @@ endif;
 
 ### When External
 [text] => I am an external button  
-[url] => http://kollektiv.ag  
+[url] => http://www.google.com
 [target] => 'target="blank"'
 
 **Note:** In both cases the field data will only be returned if the button text is set in combination with a target. If either one is missing, there will be no data returned.
 
 ## Future Plans
-- ~~option to select allowed post_types for post_object selector~~ 7626ad4
-- language support
-- validate url field
+
 - cleanups etc.
-- ~~eventually acf4 support~~ (no?)
 
 ## Compatibility
 
