@@ -1,11 +1,11 @@
 <?php
 /*
 	Plugin Name: Advanced Custom Fields: Smart Button
-	Plugin URI: https://github.com/gillesgoetsch/acf-smart-button
+	Plugin URI: https://github.com/dtdedit/acf-smart-button/
 	Description: A button field that lets you choose between internal and external and gives you either a post_object or a url field
-	Version: 1.0.4
-	Author: Gilles Goetsch
-	Author URI: https://gillesgoetsch.ch
+	Version: 2.0.0
+	Author: Original Version Gilles Goetsch, Forked DTDedit
+	Author URI: https://github.com/dtdedit/
 	License: GPLv2 or later
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
