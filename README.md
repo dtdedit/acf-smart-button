@@ -2,7 +2,7 @@
 
 ## Forked from the original v5 version due to changes in ACF nonces that caused post object rendering to fail
 
-A simple, clean and lean ACF Field that allows the user to select an internal link as a post_object or an external link as a url field via a smooth toggle.
+A simple, clean and lean ACF Field that allows the user to select an internal link as a post id (via dropdown) or an external link as a url field via a smooth toggle.
 
 It always returns the url as the same field, whether it's an internal or external link. With button.target you can additionally add target="_blank" in your template without additional casing.
 
@@ -45,10 +45,6 @@ endif;
 
 **Note:** In both cases the field data will only be returned if the button text is set in combination with a target. If either one is missing, there will be no data returned.
 
-## Future Plans
-
-- cleanups etc.
-
 ## Compatibility
 
 This add-on works only with version 5 and up.
@@ -73,5 +69,5 @@ include_once('acf-smart-button/acf-smart-button.php');
 
 ## Else
 
-Partially inspired by https://github.com/envex/acf-button-field, but is missing acf5 support and didn't meet my requirements fully.
-Forked from https://github.com/gillesgoetsch/acf-smart-button which no longer works due to ACFs latest security updates.
+1. Partially inspired by https://github.com/envex/acf-button-field, but is missing acf5 support and didn't meet my requirements fully.
+2. Forked from https://github.com/gillesgoetsch/acf-smart-button which no longer works due to ACFs latest security updates.
